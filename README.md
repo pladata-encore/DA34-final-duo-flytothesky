@@ -6,7 +6,7 @@
 
 ## 팀 구성원
 
-김성준(<asd@naver.com>) / 최준환(<asd@naver.com>)
+김성준(<ksjhshl@naver.com>) / 최준환(<wnsksl0527@gmail.com>)
 
 ## 활용 데이터
 
