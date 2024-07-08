@@ -1,0 +1,45 @@
+{
+  “DataSet”: “연령대별특징적발화음성“,
+  “Version”: “1.0",
+  “Date”: “20220523",
+  “MediaUrl”: “대화/20대/26.일상/20_26_42785278_220906_0001.wav”,
+  “Category”: “20대“,
+  “Subcategory”: “일상“,
+  “DialogPlace”: “사무실“,
+  “DialogVoiceType”: “대면대화“,
+  “SpeakerNumber”: “2",
+  “RecDevice”: “녹음장치“,
+  “RecLen”: 60,
+  “AudioResolution”: {
+    “BitDepth”: “16bit”,
+    “SampleRate”: “44.1kHz”
+  },
+  “Speakers”: [
+    {
+      “Speaker”: “4278”,
+      “Gender”: “남성“,
+      “Locate”: “수도권“,
+      “Agegroup”: “30"
+    }
+  ],
+  “Dialogs”: [
+    {
+      “Speaker”: “4278”,
+      “Speakertext”: “오늘 점심은 뭐로 할까? 점메추 좀~“,
+      “TextConvert”: “오늘 점심은 뭐로 할까? 점심메뉴추천 좀~“,
+      “StartTime”: 1,
+      “EndTime”: 4,
+      “SpeakTime”: 3,
+      “WordInfo”: [
+        {
+          “Word”: “점메추“,
+          “WordType”: “줄임말“,
+          “WordStructure”: “축약어“,
+          “WordDefine”: “점심 메뉴 추천“,
+          “WordFell”: “중립“,
+          “WordMean”: “궁금”
+        }
+      ]
+    }
+  ]
+}
