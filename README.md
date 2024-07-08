@@ -1,93 +1,151 @@
-# DA34-final-duo-flytothesky
-최준환 김성준
-OpenWebUI와 AIHUB 데이터셋을 활용한 은어 순화어 번역 서비스
-이 레포지토리는 OpenWebUI와 AIHUB 데이터셋을 활용하여 은어를 순화어로 번역하는 LLM(대형 언어 모델) 기반의 서비스를 구축하는 방법을 소개합니다.
+# Gemmini: 세대간 언어 번역기
 
-목차
-소개
-기능
-설치
-사용법
-데이터셋
-모델 학습
-기여 방법
-라이선스
-소개
-이 프로젝트는 OpenWebUI와 AIHUB의 데이터셋을 활용하여 은어를 순화어로 번역하는 대형 언어 모델(LLM) 기반의 서비스를 구축하기 위한 종합적인 솔루션을 제공합니다. 이 서비스는 텍스트를 입력받아 은어를 감지하고 적절한 순화어로 번역해줍니다.
+![logo](img/E8D18C5B-0C80-4873-8F9E-73CFBC5C7A69.png)
 
-기능
-은어 감지: 입력된 텍스트에서 은어 감지
-순화어 번역: 감지된 은어를 적절한 순화어로 번역
-사용자 정의 학습: 사용자의 데이터셋으로 모델 재학습
-웹 인터페이스: 모델과 상호 작용하기 위한 사용자 친화적인 웹 인터페이스
-설치
-필요 조건
-Python 3.8 이상
-Git
-Virtualenv
-설치 방법
-레포지토리 클론:
+> Gemmini는 세대 간 언어 차이를 극복하고 원활한 소통을 돕는 AI 기반 번역 서비스입니다. 각 세대의 특징적인 표현과 은어를 상대방이 이해하기 쉬운 언어로 번역해 이해할 수 있게 만들어 줘요!
 
-bash
-코드 복사
-git clone https://github.com/yourusername/slang-translation-service.git
-cd slang-translation-service
-가상 환경 생성 및 활성화:
+## 팀 구성원
 
-bash
-코드 복사
-virtualenv venv
-source venv/bin/activate
-필요한 패키지 설치:
+김성준(<asd@naver.com>) / 최준환(<asd@naver.com>)
 
-bash
-코드 복사
-pip install -r requirements.txt
-OpenWebUI 설치:
+## 활용 데이터
 
-OpenWebUI GitHub 페이지의 지침을 따라 OpenWebUI를 설치하고 설정합니다.
+- aihub: [연령대별 특징적 발화(은어·속어 등) 음성 데이터](https://www.aihub.or.kr/aihubdata/data/view.do?currMenu=&topMenu=&aihubDataSe=data&dataSetSn=71320)
 
-사용법
-웹 인터페이스 실행
-OpenWebUI 서버 시작:
+| No | 항목 | 설명 | 타입 | (예시) |
+|---|---|---|---|---|
+| 1 | DataSet | 데이터셋 | String | 연령대별특징적발화음성 |
+| 2 | Version | 데이터셋 버전 | String | 1.0 |
+| 3 | Date | 녹음날짜 | String | 20220523 |
+| 4 | MediaUrl | 녹취된 음원의 URL | String | 대화/20대/26.일상/20_26_42785278_220906_0001.wav |
+| 5 | Category | 연령대분류 [10대/20대/30대/40대/50대이상] | String | 20대 |
+| 6 | Subcategory | 주제별 분류 [게임,SNS,교육,일상,군대 등] | String | 일상 |
+| 7 | DialogPlace | 발화장소 [집/휴게실/사무실/야외/실내/실외] | String | 사무실 |
+| 8 | DialogVoiceType | [독백/대면/음성통화/영상통화] | String | 대면대화 |
+| 9 | SpeakerNumber | 화자수 [1명/2명] | String | 2 |
+| 10 | RecDevice | [스마트폰, 컴퓨터, 녹음장치] | String | 녹음장치 |
+| 11 | RecLen | 전체 녹음 시간(초) | number | 60 |
+| 12 | AudioResolution | 오디오레졸류션 | Object | {} |
+| 12-1 | BitDepth | 16bit | String | 16bit |
+| 12-2 | SampleRate | 44.1kHz | String | 44.1kHz |
+| 13 | Speakers | 화자 정보 (화자 목록) | Array | [] |
+| 13-1 | Speaker | 화자코드 | String | 4278 |
+| 13-2 | Gender | [남성/여성] | String | 남성 |
+| 13-3 | Locate | [수도권/강원/충청/전라/경상] | String | 수도권 |
+| 13-4 | Agegroup | 화자연령대 [10/20/30/40/50] | String | 30 |
+| 14 | Dialogs | 전사 데이터 목록 (대화 목록) | Array | [] |
+| 14-1 | Speaker | 화자코드 | String | 4278 |
+| 14-2 | Speakertext | 은어 속어가 포함된 발화문장 | String | 오늘 점심은 뭐로 할까? 점메추 좀~ |
+| 14-3 | TextConvert | 은어 속어를 풀어쓴 발화문장 | String | 오늘 점심은 뭐로 할까? 점심메뉴추천 좀~ |
+| 14-4 | StartTime | 발화 시작 시간 | number | 1 |
+| 14-5 | EndTime | 발화 종료 시간 | number | 4 |
+| 14-6 | SpeakTime | 화자 발화한 발성시간(초) | number | 3 |
+| 14-7 | WordInfo | 특정적단어에 대한 세부정보 | Array | [] |
+| 14-7-1 | Word | 특징적 발화 단어 | String | 점메추 |
+| 14-7-2 | WordType | 단어유형분류[은어/속어/유행어/줄임말 등] | String | 줄임말 |
+| 14-7-3 | WordStructure | 단어구조분류[파생어,합성어,혼성어, 축약어 등] | String | 축약어 |
+| 14-7-4 | WordDefine | 특정단어의 뜻풀이 | String | 점심 메뉴 추천 |
+| 14-7-5 | WordFell | 감정의 반응을 표시 [긍정/부정/중립] | String | 중립 |
+| 14-7-6 | WordMean | 감정의 세부 항목(의도 분류) 긍정[좋음/선의] 부정[싫어함/화남] 중립[감정없음] | String | 궁금 |
+| 14-7-1 | Word | 특징적 발화 단어 | String | 점메추 |
+| 14-7-2 | WordType | 단어유형분류[은어/속어/유행어/줄임말 등] | String | 줄임말 |
+| 14-7-3 | WordStructure | 단어구조분류[파생어,합성어,혼성어, 축약어 등] | String | 축약어 |
+| 14-7-4 | WordDefine | 특정단어의 뜻풀이 | String | 점심 메뉴 추천 |
+| 14-7-5 | WordFell | 감정의 반응을 표시 [긍정/부정/중립] | String | 중립 |
+| 14-7-6 | WordMean | 감정의 세부 항목(의도 분류) 긍정[좋음/선의] 부정[싫어함/화남] 중립[감정없음] | String | 궁금 |
 
-bash
-코드 복사
-openwebui-server
-서비스 실행:
+## 주요 기능
 
-bash
-코드 복사
-python app.py
-브라우저를 열고 http://localhost:5000에 접속하여 웹 인터페이스에 접근합니다.
+- 세대별 언어 스타일 분석 및 변환
+- 실시간 채팅 Q&A
+- 음성 인식을 통한 채팅 지원
+- 다국어 지원
 
-모델과의 상호작용
-웹 인터페이스 또는 제공된 API 엔드포인트를 통해 모델과 상호작용할 수 있습니다.
+## 기술 스택
 
-은어 순화어 번역
-은어를 순화어로 번역하려면 /translate 엔드포인트를 사용합니다:
+- langchain
+- llama-index
+- open-web-ui
+- pipelines
 
-bash
-코드 복사
-curl -X POST http://localhost:5000/translate -d '{"text": "이거 완전 대박이다!"}'
-데이터셋
-AIHUB의 다양한 데이터셋을 사용하여 모델을 학습시킬 수 있습니다. 데이터셋을 다운로드하고 준비하는 방법은 AIHUB 사이트를 참고하세요.
+## 활용 모델
 
-모델 학습
-자신만의 데이터셋을 사용하여 모델을 학습시키려면, train.py 스크립트를 사용합니다:
+Open LLM:
 
-bash
-코드 복사
-python train.py --dataset_path /path/to/your/dataset
-기여 방법
-기여를 환영합니다! 버그 리포트, 기능 요청, 풀 리퀘스트 등을 통해 기여할 수 있습니다.
+- open-ai-gpt3.5-turbo
+- xionic-ko-llama-3-70b
 
-라이선스
-이 프로젝트는 MIT 라이선스에 따라 배포됩니다. 자세한 내용은 LICENSE 파일을 참조하세요.
+Closed LLM:
 
+- llama-3-Korean-Bllossom-70B-gguf-Q4_K_M
+- llama3-alphako-8b-q8
+- llama3-alphako-8b-q5-k-m
+- llama3-instruct-8b
+- llama-3-Open-Ko-8B-Q4_K_M
 
-기여 방법
-기여를 환영합니다! 버그 리포트, 기능 요청, 풀 리퀘스트 등을 통해 기여할 수 있습니다.
+## 아키텍처
 
-라이선스
-이 프로젝트는 MIT 라이선스에 따라 배포됩니다. 자세한 내용은 LICENSE 파일을 참조하세요.
+![아키텍처](img/0BBBB15C-881E-4960-8B91-171C8C082D6A.png)
+<br>
+
+# 시작하기
+
+## 파이썬 요구 사항
+
+- Python 3.11+
+- TensorFlow 2.0+
+- PyTorch 1.8+
+
+## 환경 구성
+
+multi-modal
+
+```sh
+pip install -r requirements-multi-modal.txt
+```
+
+chat-qa
+
+```sh
+pip install -r requirements-chat-qa.txt
+```
+
+## Multi Modal App (gradio)
+
+blah blah blah blah
+
+```
+```
+
+## Chat QA App (open-web-ui)
+
+### Ollama / Local LLM 설치
+
+- 플랫폼에 맞게 Ollama 설치: <https://ollama.com/download>
+- `model/README.md`를 참고하여 로컬 모델 Load
+
+### Docker 실행
+
+- open web ui
+
+```sh
+docker run -d -p 3000:8080 --add-host=host.docker.internal:host-gateway -v open-webui:/app/backend/data --name open-webui --restart always ghcr.io/open-webui/open-webui:main
+```
+
+- pipelines
+
+```sh
+docker run -d -p 9099:9099 --add-host=host.docker.internal:host-gateway -v pipelines:/app/pipelines --name pipelines --restart always ghcr.io/open-webui/pipelines:main
+```
+
+### 프롬프트 구성
+
+### 모델 비교
+
+모델을 자원의 한계와 정성적 평가 방식으로 진행함
+
+![모델비교](img/model-comparison.png)
+
+1. 세대 간 언어 번역의 경우, 시대적 맥락과 문화적 뉘앙스가 중요하여 단순한 수치 지표로 평가하기 어려움
+
+2. 창의적 표현이나 의역의 적절성을 객관적인 수치로 나타내기 어려워 정량적 평가만으로는 번역의 질을 완전히 반영하기 어렵기 때문
