@@ -112,8 +112,7 @@ pip install -r requirements-chat-qa.txt
 
 ## Multi Modal App (gradio)
 
-blah blah blah blah
-
+![gradio](img/gradio_final.png)
 ```
 ```
 
