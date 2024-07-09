@@ -40,7 +40,8 @@
 
 ### 데이터 전처리
 
-####특수 문자 및 비라틴 문자(한글 제외)를 제거
+특수 문자 및 비라틴 문자(한글 제외)를 제거
+```sh
 def remove_special_characters(text):
     if isinstance(text, str):
         # 한글, 영어, 숫자, 공백을 제외한 모든 문자 제거
@@ -49,6 +50,7 @@ def remove_special_characters(text):
         return text.strip()  # 앞뒤 공백 제거
     else:
         return str(text)
+```
 
 
 ## 주요 기능
