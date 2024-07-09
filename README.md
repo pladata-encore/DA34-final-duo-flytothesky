@@ -12,47 +12,44 @@
 
 - aihub: [연령대별 특징적 발화(은어·속어 등) 음성 데이터](https://www.aihub.or.kr/aihubdata/data/view.do?currMenu=&topMenu=&aihubDataSe=data&dataSetSn=71320)
 
-| No | 항목 | 설명 | 타입 | (예시) |
-|---|---|---|---|---|
-| 1 | DataSet | 데이터셋 | String | 연령대별특징적발화음성 |
-| 2 | Version | 데이터셋 버전 | String | 1.0 |
-| 3 | Date | 녹음날짜 | String | 20220523 |
-| 4 | MediaUrl | 녹취된 음원의 URL | String | 대화/20대/26.일상/20_26_42785278_220906_0001.wav |
-| 5 | Category | 연령대분류 [10대/20대/30대/40대/50대이상] | String | 20대 |
-| 6 | Subcategory | 주제별 분류 [게임,SNS,교육,일상,군대 등] | String | 일상 |
-| 7 | DialogPlace | 발화장소 [집/휴게실/사무실/야외/실내/실외] | String | 사무실 |
-| 8 | DialogVoiceType | [독백/대면/음성통화/영상통화] | String | 대면대화 |
-| 9 | SpeakerNumber | 화자수 [1명/2명] | String | 2 |
-| 10 | RecDevice | [스마트폰, 컴퓨터, 녹음장치] | String | 녹음장치 |
-| 11 | RecLen | 전체 녹음 시간(초) | number | 60 |
-| 12 | AudioResolution | 오디오레졸류션 | Object | {} |
-| 12-1 | BitDepth | 16bit | String | 16bit |
-| 12-2 | SampleRate | 44.1kHz | String | 44.1kHz |
-| 13 | Speakers | 화자 정보 (화자 목록) | Array | [] |
-| 13-1 | Speaker | 화자코드 | String | 4278 |
-| 13-2 | Gender | [남성/여성] | String | 남성 |
-| 13-3 | Locate | [수도권/강원/충청/전라/경상] | String | 수도권 |
-| 13-4 | Agegroup | 화자연령대 [10/20/30/40/50] | String | 30 |
-| 14 | Dialogs | 전사 데이터 목록 (대화 목록) | Array | [] |
-| 14-1 | Speaker | 화자코드 | String | 4278 |
-| 14-2 | Speakertext | 은어 속어가 포함된 발화문장 | String | 오늘 점심은 뭐로 할까? 점메추 좀~ |
-| 14-3 | TextConvert | 은어 속어를 풀어쓴 발화문장 | String | 오늘 점심은 뭐로 할까? 점심메뉴추천 좀~ |
-| 14-4 | StartTime | 발화 시작 시간 | number | 1 |
-| 14-5 | EndTime | 발화 종료 시간 | number | 4 |
-| 14-6 | SpeakTime | 화자 발화한 발성시간(초) | number | 3 |
-| 14-7 | WordInfo | 특정적단어에 대한 세부정보 | Array | [] |
-| 14-7-1 | Word | 특징적 발화 단어 | String | 점메추 |
-| 14-7-2 | WordType | 단어유형분류[은어/속어/유행어/줄임말 등] | String | 줄임말 |
-| 14-7-3 | WordStructure | 단어구조분류[파생어,합성어,혼성어, 축약어 등] | String | 축약어 |
-| 14-7-4 | WordDefine | 특정단어의 뜻풀이 | String | 점심 메뉴 추천 |
-| 14-7-5 | WordFell | 감정의 반응을 표시 [긍정/부정/중립] | String | 중립 |
-| 14-7-6 | WordMean | 감정의 세부 항목(의도 분류) 긍정[좋음/선의] 부정[싫어함/화남] 중립[감정없음] | String | 궁금 |
-| 14-7-1 | Word | 특징적 발화 단어 | String | 점메추 |
-| 14-7-2 | WordType | 단어유형분류[은어/속어/유행어/줄임말 등] | String | 줄임말 |
-| 14-7-3 | WordStructure | 단어구조분류[파생어,합성어,혼성어, 축약어 등] | String | 축약어 |
-| 14-7-4 | WordDefine | 특정단어의 뜻풀이 | String | 점심 메뉴 추천 |
-| 14-7-5 | WordFell | 감정의 반응을 표시 [긍정/부정/중립] | String | 중립 |
-| 14-7-6 | WordMean | 감정의 세부 항목(의도 분류) 긍정[좋음/선의] 부정[싫어함/화남] 중립[감정없음] | String | 궁금 |
+
+- **데이터셋 이름**: 연령대별특징적발화음성
+- **출처**: AIHub
+- **버전**: 1.0
+- **포맷**: JSON, WAV 파일
+- **크기**: 545.73 GB
+
+### 데이터 설명
+
+| 항목               | 설명                                | 타입        | 예시                                                      |
+|--------------------|-------------------------------------|-------------|-----------------------------------------------------------|
+| DataSet            | 데이터셋                            | String      | 연령대별특징적발화음성                                    |
+| Version            | 데이터셋 버전                       | String      | 1.0                                                       |
+| Date               | 녹음 날짜                           | String      | 20220523                                                  |
+| MediaUrl           | 녹취된 음원의 URL                  | String      | 대화/20대/26.일상/20_26_42785278_220906_0001.wav           |
+| Category           | 연령대 분류                         | String      | 20대                                                      |
+| Subcategory        | 주제별 분류                         | String      | 일상                                                      |
+| DialogPlace        | 발화 장소                           | String      | 사무실                                                    |
+| DialogVoiceType    | 대화 유형                           | String      | 대면대화                                                  |
+| SpeakerNumber      | 화자 수                              | String      | 2                                                         |
+| RecDevice          | 녹음 장치                            | String      | 녹음장치                                                  |
+| RecLen             | 전체 녹음 시간 (초)                 | Number      | 60                                                        |
+| AudioResolution    | 오디오 레졸류션                     | Object      | {BitDepth: '16bit', SampleRate: '44.1kHz'}                |
+| Speakers           | 화자 정보                           | Array       | [{Speaker: '4278', Gender: '남성', Locate: '수도권', Agegroup: '30'}] |
+| Dialogs            | 전사 데이터 목록                    | Array       | [{Speaker: '4278', Speakertext: '오늘 점심은 뭐로 할까? 점메추 좀~', TextConvert: '오늘 점심은 뭐로 할까? 점심메뉴추천 좀~', StartTime: 1, EndTime: 4, SpeakTime: 3, WordInfo: [{Word: '점메추', WordType: '줄임말', WordStructure: '축약어', WordDefine: '점심 메뉴 추천', WordFell: '중립', WordMean: '궁금'}]}] |
+
+### 데이터 전처리
+
+####특수 문자 및 비라틴 문자(한글 제외)를 제거
+def remove_special_characters(text):
+    if isinstance(text, str):
+        # 한글, 영어, 숫자, 공백을 제외한 모든 문자 제거
+        text = re.sub(r'[^가-힣a-zA-Z0-9\s]', '', text)
+        text = re.sub(r'\s+', ' ', text)  # 여러 공백을 하나로 변환
+        return text.strip()  # 앞뒤 공백 제거
+    else:
+        return str(text)
+
 
 ## 주요 기능
 
